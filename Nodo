@@ -1,0 +1,106 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ListaDoble;
+
+/**
+ *
+ * @author Julio Roche
+ */
+public class Nodo {
+    private Nodo Siguiente;
+    private Nodo Anterior;
+    private int Valor;
+    public Nodo(){
+        this.Siguiente = null;
+        this.Anterior = null;
+        this.Valor = -1;
+    }
+    
+    public void add(int valor){
+        if(this.Valor < valor){
+            if(this.Siguiente == null){
+                this.Siguiente = new Nodo(valor);
+                this.Siguiente.setAnterior(this);
+            } else {
+                this.Siguiente.add(valor);
+            }
+        } else{
+            Nodo nuevo = new Nodo(valor);
+            nuevo.setAnterior(this.Anterior);
+            nuevo.setSiguiente(this);
+            this.Anterior = nuevo;
+        }
+    }
+    
+    public Nodo remove(){
+        if(this.Siguiente != null && this.Anterior != null){
+            this.Siguiente.setAnterior(this.Anterior);
+            this.Anterior.setSiguiente(this.Siguiente);
+        }
+        if (this.Anterior == null && this.Siguiente != null){
+            this.Siguiente.setAnterior(null);
+            return this.Siguiente;
+        }
+        if (this.Anterior != null && this.Siguiente == null){
+            this.Anterior.setSiguiente(null);
+        }
+        return null;
+    }
+    
+    public Nodo getNodo(){
+        Nodo retorno = new Nodo();
+        retorno.setAnterior(this.getAnterior());
+        retorno.setSiguiente(this.getSiguiente());
+        retorno.setValor(this.getValor());
+        return retorno;
+    }
+    
+    public Nodo(int valor){
+        this.Valor = valor;
+    }
+
+    /**
+     * @return the Siguiente
+     */
+    public Nodo getSiguiente() {
+        return Siguiente;
+    }
+
+    /**
+     * @param Siguiente the Siguiente to set
+     */
+    public void setSiguiente(Nodo Siguiente) {
+        this.Siguiente = Siguiente;
+    }
+
+    /**
+     * @return the Anterior
+     */
+    public Nodo getAnterior() {
+        return Anterior;
+    }
+
+    /**
+     * @param Anterior the Anterior to set
+     */
+    public void setAnterior(Nodo Anterior) {
+        this.Anterior = Anterior;
+    }
+
+    /**
+     * @return the Valor
+     */
+    public int getValor() {
+        return Valor;
+    }
+
+    /**
+     * @param Objeto the Valor to set
+     */
+    public void setValor(int valor) {
+        this.Valor = valor;
+    }
+}
