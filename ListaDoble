@@ -1,0 +1,67 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ListaDoble;
+
+/**
+ *
+ * @author Julio Roche
+ */
+public class ListaDoble {
+    public int tamano;
+    public Nodo Inicio;
+    public ListaDoble(){
+        this.Inicio = null;
+    }
+    
+    public void add(int valor){
+        // lista.add("url/image"));
+        if (tamano == 0){
+            Inicio = new Nodo(valor);
+        } else {
+            if(Inicio.getValor() > valor){
+                Nodo temporal = new Nodo(valor);
+                temporal.setSiguiente(Inicio);
+                Inicio.setAnterior(temporal);
+                Inicio = temporal;
+            } else {
+                Inicio.add(valor);
+            }
+        }
+    }
+    
+    public Nodo get(int Index){
+        int x = 0;
+        Nodo temporal = Inicio;
+        while(x != Index && temporal.getSiguiente() != null){
+            temporal = temporal.getSiguiente();
+            x++;
+        }
+        if(x == Index){
+            return temporal;
+        }
+        return null;
+    }
+    
+    public int size(){
+        return tamano;
+    }
+    
+    public Nodo pop(){ //elimina cola
+        Nodo temporal = Inicio;
+        while(temporal.getSiguiente() != null){
+            temporal = temporal.getSiguiente();
+        }
+        temporal.remove();
+        return temporal;
+    }
+    
+    public Nodo extract(){ //elimina pila
+        Nodo temporal = Inicio;
+        Inicio = Inicio.getSiguiente();
+        Inicio.setAnterior(null);
+        return temporal;
+    }
+}
