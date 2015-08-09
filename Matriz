@@ -1,0 +1,133 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Ortogonal;
+
+/**
+ *
+ * @author Julio Roche
+ */
+public class Matriz {
+    private Nodo Cabecera;
+    private int Columnas;
+    private int Filas;
+    
+    public Matriz(){
+        Columnas = Filas = 0;
+        Cabecera = new Nodo(0);
+    }
+    
+    public void set(int x, int y, int valor){
+        int i = 0, j = 0;
+        Nodo temporal = Cabecera;
+        while(temporal != null && i < x){
+            temporal = temporal.Derecha;
+            i++;
+        }
+        if(temporal != null){
+            while(temporal != null && j < x){
+                temporal = temporal.Arriba;
+                j++;
+            }
+            if (temporal != null){
+                temporal.Valor = valor;
+            } else {
+                // error
+            }
+        } else {
+            // error
+        }
+    }
+    
+    public int get(int x, int y){
+        int i = 0, j = 0;
+        Nodo temporal = Cabecera;
+        while(temporal != null && i < x){
+            temporal = temporal.Derecha;
+            i++;
+        }
+        if(temporal != null){
+            while(temporal != null && j < x){
+                temporal = temporal.Arriba;
+                j++;
+            }
+            if (temporal != null){
+                return temporal.Valor;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+    }
+    
+    public void addLine(){
+        Nodo temporal = Cabecera;
+        while (temporal != null){
+            temporal.add(0, 1);
+            temporal = temporal.Derecha;
+        }
+        Filas++;
+    }
+    
+    public void addColumn(){
+        Nodo temporal = Cabecera;
+        while (temporal != null){
+            temporal.add(0, 2);
+            temporal = temporal.Arriba;
+        }
+        Columnas++;
+    }
+    
+    public int getFilas(){
+        return Filas;
+    }
+    
+    public int getColumnas(){
+        return Columnas;
+    }
+    
+    public void removeLine(){
+        Nodo columnas = Cabecera;
+        while(columnas != null){
+            Nodo temporal = Cabecera;
+            Nodo anterior = null;
+            while (temporal.Arriba != null){
+                anterior = temporal;
+                temporal = temporal.Arriba;
+            }
+            anterior.Arriba = null;
+            columnas = columnas.Derecha;
+        }
+        Filas--;
+    }
+    
+    public void removeColumn(){
+        Nodo columnas = Cabecera;
+        while(columnas != null){
+            Nodo temporal = Cabecera;
+            Nodo anterior = null;
+            while (temporal.Derecha != null){
+                anterior = temporal;
+                temporal = temporal.Derecha;
+            }
+            anterior.Derecha = null;
+            columnas = columnas.Arriba;
+        }
+        Columnas--;
+    }
+    
+    //public Matriz Ortogonal = new Matriz();
+      
+    //public void inicializar(int x, int y){
+      //  for(int i = 0; i < x; i++){
+        //    Ortogonal.addLine();
+        //}
+        //for(int j = 0; j < y; j++){
+          //  Ortogonal.addColumn();
+        //}
+    //}
+    
+}
